@@ -128,16 +128,22 @@ table {
     border-spacing: 0;
 }
 
-/* Change font */
+/* End of CSS reset */
+
 body {
     font-family: "Open Sans", sans-serif;
     color: #fff;
-    background-color: #333;
+    background-image: linear-gradient(
+            to right bottom,
+            rgba(0, 0, 0, 0.9),
+            rgba(0, 0, 0, 0.9)
+        ),
+        url(http://3.bp.blogspot.com/-nFrJSXu9ViY/UmkQEqiJeaI/AAAAAAAAATk/mPqVd3z5sIE/s1600/budaya+sunda.jpg);
 }
 
 header {
     text-align: center;
-    background-color: #222;
+    background-color: rgba(10, 10, 10, 0.8);
     padding: 30px 20px;
 }
 
@@ -220,4 +226,9 @@ form > button {
 
 form > button:hover {
     background-color: #111;
+}
+
+#result > div {
+    text-align: center;
+    margin: 1rem 0;
 }
