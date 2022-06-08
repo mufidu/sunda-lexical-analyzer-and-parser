@@ -18,11 +18,15 @@ function lexical_analyzer(sentence) {
 
     for (let state of state_list) {
         for (let alphabet of alphabet_list) {
-            transition_table[(state, alphabet)] = 'error'
+            transition_table[(`${state}, ${alphabet}`)] = 'error'
         }
-        transition_table[(state, '#')] = 'error'
-        transition_table[(state, ' ')] = 'error'
+        transition_table[(`${state}, #`)] = 'error'
+        transition_table[(`${state}, ' '`)] = 'error'
     }
+
+    for (const key of Object.keys(transition_table)) {
+        console.log(key + ":" + transition_table[key])
+    };
 
     // spaces before input string
     transition_table['q0', ' '] = 'q0'
@@ -136,7 +140,7 @@ function lexical_analyzer(sentence) {
     for (let idx_char = 0; state != 'accept'; idx_char++) {
         let current_char = input_string[idx_char]
         current_token += current_char
-        state = transition_table[(state, current_char)]
+        state = transition_table[(`${state}, ${current_char}`)]
         if (state == 'q2' || state == 'q6' || state == 'q10' || state == 'q23' || state == 'q25' || state == 'q33' || state == 'q38') {
             idx_token += 1
             current_token = ''
