@@ -1,4 +1,5 @@
 function lexical_analyzer(sentence) {
+    console.log(`====== Lexical Analyzer Result ======`);
     let input_string = sentence.toLowerCase() + '#'
 
     // initializations
@@ -139,24 +140,28 @@ function lexical_analyzer(sentence) {
         state = transition_table[(`${state}, ${current_char}`)]
         if (state == 'q2' || state == 'q6' || state == 'q10' || state == 'q23' || state == 'q25' || state == 'q33' || state == 'q38') {
             idx_token += 1
+            console.log(`Token ${idx_token}: ${current_token} is valid`)
             current_token = ''
         }
         if (state == 'error') {
             idx_token += 1
+            console.log(`Token ${idx_token}: ${current_token} is invalid!`)
             break
         }
     }
 
     // conclusion
     if (state == 'accept') {
+        console.log(`Input ${sentence} is valid!`)
         return true
     } else {
-        console.log(`lexical error at ${idx_token}th token: ${current_token}`)
+        console.log(`Input ${sentence} is invalid!`)
         return false
     }
 }
 
 function parser(sentence) {
+    console.log(`=========== Parser Result ===========`)
     let tokens = sentence.toLowerCase().split(' ')
     tokens.push('EOS')
 
@@ -216,8 +221,8 @@ function parser(sentence) {
     // parsing
     while (stack.length > 0) {
         let top = stack[stack.length - 1]
-        console.log(`top: ${top}`)
-        console.log(`symbol: ${symbol}`)
+        console.log(`Top: ${top}`)
+        console.log(`Symbol: ${symbol}`)
         if (terminals.includes(top)) {
             console.log(`${top} is a terminal`)
             if (top == symbol) {
@@ -225,7 +230,7 @@ function parser(sentence) {
                 idx_token += 1
                 symbol = tokens[idx_token]
                 if (symbol == 'EOS') {
-                    console.log(`stack: ${stack}`)
+                    console.log(`Stack: ${stack}`)
                     stack.pop()
                 }
             } else {
@@ -241,20 +246,22 @@ function parser(sentence) {
                     stack.push(pushed_symbol[i])
                 }
             } else {
-                console.log('error')
+                console.log('Error')
                 break
             }
         } else {
-            console.log('parser error')
+            console.log('Parsing error')
             break
         }
-        console.log(`stack: ${stack}\n`)
+        console.log(`Stack: ${stack}\n`)
     }
 
     // conclusion
     if (symbol == 'EOS' && stack.length == 0) {
+        console.log(`Input ${sentence} is accepted!`)
         return true
     } else {
+        console.log(`Input ${sentence} is rejected! Check your grammar!`)
         return false
     }
 }
@@ -263,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formInput = document.querySelector('#input');
     const lexicalResult = document.querySelector('#lexical');
     const parserResult = document.querySelector('#parser');
+    const details = document.querySelector('#details');
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -270,6 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         lexicalResult.innerHTML = '';
         parserResult.innerHTML = '';
+        details.innerHTML = '';
 
         // Show spinner for 1.5 seconds
         lexicalResult.innerHTML = '<img src="assets/138.gif" alt="loading..." style="width: 35px; height: 35px;">';
@@ -289,6 +298,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     parserResult.innerHTML = `<p>...and rejected by the parser.</p>`;
                 }
+
+                setTimeout(() => {
+                    details.innerHTML = `<p>For more details, open your console in DevTools (ctrl+shift+i)</p>`;
+                }, 500);
             }, 1500);
         }, 1500);
     }
