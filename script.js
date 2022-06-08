@@ -1,10 +1,10 @@
-function lexical_analyzer(sentence) {
+function lexicalAnalyzer(sentence) {
     console.log(`====== Lexical Analyzer Result ======`);
-    let input_string = sentence.toLowerCase() + '#'
+    let inputString = sentence.toLowerCase() + '#'
 
     // initializations
-    let alphabet_list = 'abcdefghijklmnopqrstuvwxyz'
-    let state_list = [
+    let alphabetList = 'abcdefghijklmnopqrstuvwxyz'
+    let stateList = [
         'q0', 'q1', 'q2', 'q3', 'q4',
         'q5', 'q6', 'q7', 'q8', 'q9',
         'q10', 'q11', 'q12', 'q13', 'q14',
@@ -15,137 +15,137 @@ function lexical_analyzer(sentence) {
         'q35', 'q36', 'q37', 'q38'
     ]
 
-    let transition_table = {}
+    let transitionTable = {}
 
-    for (let state of state_list) {
-        for (let alphabet of alphabet_list) {
-            transition_table[(`${state}, ${alphabet}`)] = 'error'
+    for (let state of stateList) {
+        for (let alphabet of alphabetList) {
+            transitionTable[(`${state}, ${alphabet}`)] = 'error'
         }
-        transition_table[(`${state}, #`)] = 'error'
-        transition_table[(`${state}, ' '`)] = 'error'
+        transitionTable[(`${state}, #`)] = 'error'
+        transitionTable[(`${state}, ' '`)] = 'error'
     }
 
     // spaces before input string
-    transition_table['q0,  '] = 'q0'
+    transitionTable['q0,  '] = 'q0'
 
     // update the transition table for the following token: aa
-    transition_table[('q0, a')] = 'q1'
-    transition_table[('q1, a')] = 'q2'
+    transitionTable[('q0, a')] = 'q1'
+    transitionTable[('q1, a')] = 'q2'
 
-    transition_table[('q2,  ')] = 'q3'
-    transition_table[('q2, #')] = 'accept'
+    transitionTable[('q2,  ')] = 'q3'
+    transitionTable[('q2, #')] = 'accept'
 
-    transition_table[('q3,  ')] = 'q3'
-    transition_table[('q3, #')] = 'accept'
+    transitionTable[('q3,  ')] = 'q3'
+    transitionTable[('q3, #')] = 'accept'
 
     // update the transition table for the following token: teteh
-    transition_table[('q0, t')] = 'q11'
-    transition_table[('q11, e')] = 'q12'
-    transition_table[('q12, t')] = 'q8'
-    transition_table[('q8, e')] = 'q9'
-    transition_table[('q10, h')] = 'q10'
+    transitionTable[('q0, t')] = 'q11'
+    transitionTable[('q11, e')] = 'q12'
+    transitionTable[('q12, t')] = 'q8'
+    transitionTable[('q8, e')] = 'q9'
+    transitionTable[('q10, h')] = 'q10'
 
-    transition_table[('q10,  ')] = 'q3'
-    transition_table[('q10, #')] = 'accept'
+    transitionTable[('q10,  ')] = 'q3'
+    transitionTable[('q10, #')] = 'accept'
 
     // update the transition table for the following token: acuk
-    transition_table[('q0, a')] = 'q1'
-    transition_table[('q1, c')] = 'q4'
-    transition_table[('q4, u')] = 'q5'
-    transition_table[('q5, k')] = 'q6'
+    transitionTable[('q0, a')] = 'q1'
+    transitionTable[('q1, c')] = 'q4'
+    transitionTable[('q4, u')] = 'q5'
+    transitionTable[('q5, k')] = 'q6'
 
-    transition_table[('q6,  ')] = 'q3'
-    transition_table[('q6, #')] = 'accept'
+    transitionTable[('q6,  ')] = 'q3'
+    transitionTable[('q6, #')] = 'accept'
 
     // update the transition table for the following token: kueh
-    transition_table[('q0, k')] = 'q7'
-    transition_table[('q7, u')] = 'q8'
-    transition_table[('q8, e')] = 'q9'
-    transition_table[('q9, h')] = 'q10'
+    transitionTable[('q0, k')] = 'q7'
+    transitionTable[('q7, u')] = 'q8'
+    transitionTable[('q8, e')] = 'q9'
+    transitionTable[('q9, h')] = 'q10'
 
     // update the transition table for the following token: meuli
-    transition_table[('q0, m')] = 'q34'
-    transition_table[('q34, e')] = 'q35'
-    transition_table[('q35, u')] = 'q36'
-    transition_table[('q36, l')] = 'q37'
-    transition_table[('q37, i')] = 'q38'
+    transitionTable[('q0, m')] = 'q34'
+    transitionTable[('q34, e')] = 'q35'
+    transitionTable[('q35, u')] = 'q36'
+    transitionTable[('q36, l')] = 'q37'
+    transitionTable[('q37, i')] = 'q38'
 
-    transition_table[('q38,  ')] = 'q3'
-    transition_table[('q38, #')] = 'accept'
+    transitionTable[('q38,  ')] = 'q3'
+    transitionTable[('q38, #')] = 'accept'
 
     // update the transition table for the following token: hayang
-    transition_table[('q0, h')] = 'q18'
-    transition_table[('q18, a')] = 'q19'
-    transition_table[('q19, y')] = 'q20'
-    transition_table[('q20, a')] = 'q21'
-    transition_table[('q21, n')] = 'q22'
-    transition_table[('q22, g')] = 'q23'
+    transitionTable[('q0, h')] = 'q18'
+    transitionTable[('q18, a')] = 'q19'
+    transitionTable[('q19, y')] = 'q20'
+    transitionTable[('q20, a')] = 'q21'
+    transitionTable[('q21, n')] = 'q22'
+    transitionTable[('q22, g')] = 'q23'
 
-    transition_table[('q23,  ')] = 'q3'
-    transition_table[('q23, #')] = 'accept'
+    transitionTable[('q23,  ')] = 'q3'
+    transitionTable[('q23, #')] = 'accept'
 
     // update the transition table for the following token: nyieun
-    transition_table[('q0, n')] = 'q28'
-    transition_table[('q28, y')] = 'q29'
-    transition_table[('q29, i')] = 'q30'
-    transition_table[('q30, e')] = 'q31'
-    transition_table[('q31, u')] = 'q32'
-    transition_table[('q32, n')] = 'q33'
+    transitionTable[('q0, n')] = 'q28'
+    transitionTable[('q28, y')] = 'q29'
+    transitionTable[('q29, i')] = 'q30'
+    transitionTable[('q30, e')] = 'q31'
+    transitionTable[('q31, u')] = 'q32'
+    transitionTable[('q32, n')] = 'q33'
 
-    transition_table[('q33,  ')] = 'q3'
-    transition_table[('q33, #')] = 'accept'
+    transitionTable[('q33,  ')] = 'q3'
+    transitionTable[('q33, #')] = 'accept'
 
     // update the transition table for the following token: hape
-    transition_table[('q0, h')] = 'q18'
-    transition_table[('q18, a')] = 'q19'
-    transition_table[('q19, p')] = 'q24'
-    transition_table[('q24, e')] = 'q25'
+    transitionTable[('q0, h')] = 'q18'
+    transitionTable[('q18, a')] = 'q19'
+    transitionTable[('q19, p')] = 'q24'
+    transitionTable[('q24, e')] = 'q25'
 
-    transition_table[('q25,  ')] = 'q3'
-    transition_table[('q25, #')] = 'accept'
+    transitionTable[('q25,  ')] = 'q3'
+    transitionTable[('q25, #')] = 'accept'
 
     // update the transition table for the following token: imah
-    transition_table[('q0, i')] = 'q26'
-    transition_table[('q26, m')] = 'q27'
-    transition_table[('q27, a')] = 'q9'
-    transition_table[('q9, h')] = 'q10'
+    transitionTable[('q0, i')] = 'q26'
+    transitionTable[('q26, m')] = 'q27'
+    transitionTable[('q27, a')] = 'q9'
+    transitionTable[('q9, h')] = 'q10'
 
     // update the transition table for the following token: sapedah
-    transition_table[('q0, s')] = 'q13'
-    transition_table[('q13, a')] = 'q14'
-    transition_table[('q14, p')] = 'q15'
-    transition_table[('q15, e')] = 'q16'
-    transition_table[('q16, d')] = 'q17'
-    transition_table[('q17, a')] = 'q9'
-    transition_table[('q10, h')] = 'q10'
+    transitionTable[('q0, s')] = 'q13'
+    transitionTable[('q13, a')] = 'q14'
+    transitionTable[('q14, p')] = 'q15'
+    transitionTable[('q15, e')] = 'q16'
+    transitionTable[('q16, d')] = 'q17'
+    transitionTable[('q17, a')] = 'q9'
+    transitionTable[('q10, h')] = 'q10'
 
     // transition for new token
-    transition_table[('q3, a')] = 'q1'
-    transition_table[('q3, i')] = 'q26'
-    transition_table[('q3, k')] = 'q7'
-    transition_table[('q3, t')] = 'q11'
-    transition_table[('q3, s')] = 'q13'
-    transition_table[('q3, h')] = 'q18'
-    transition_table[('q3, n')] = 'q28'
-    transition_table[('q3, m')] = 'q34'
+    transitionTable[('q3, a')] = 'q1'
+    transitionTable[('q3, i')] = 'q26'
+    transitionTable[('q3, k')] = 'q7'
+    transitionTable[('q3, t')] = 'q11'
+    transitionTable[('q3, s')] = 'q13'
+    transitionTable[('q3, h')] = 'q18'
+    transitionTable[('q3, n')] = 'q28'
+    transitionTable[('q3, m')] = 'q34'
 
 
     // lexical analysis
-    let idx_token = 0
+    let idxToken = 0
     let state = 'q0'
-    let current_token = ''
+    let currentToken = ''
     for (let idx_char = 0; state != 'accept'; idx_char++) {
-        let current_char = input_string[idx_char]
-        current_token += current_char
-        state = transition_table[(`${state}, ${current_char}`)]
+        let currentChar = inputString[idx_char]
+        currentToken += currentChar
+        state = transitionTable[(`${state}, ${currentChar}`)]
         if (state == 'q2' || state == 'q6' || state == 'q10' || state == 'q23' || state == 'q25' || state == 'q33' || state == 'q38') {
-            idx_token += 1
-            console.log(`Token ${idx_token}: ${current_token} is valid`)
-            current_token = ''
+            idxToken += 1
+            console.log(`Token ${idxToken}: ${currentToken} is valid`)
+            currentToken = ''
         }
         if (state == 'error') {
-            idx_token += 1
-            console.log(`Token ${idx_token}: ${current_token} is invalid!`)
+            idxToken += 1
+            console.log(`Token ${idxToken}: ${currentToken} is invalid!`)
             break
         }
     }
@@ -166,48 +166,48 @@ function parser(sentence) {
     tokens.push('EOS')
 
     // symbol definition
-    let non_terminals = ['S', 'NN', 'VB']
+    let nonTerminals = ['S', 'NN', 'VB']
     let terminals = ['aa', 'teteh', 'meuli', 'nyieun', 'hayang', 'kueh', 'imah', 'sapedah', 'hape', 'acuk'
     ]
 
     // parse table definition
-    let parse_table = {}
+    let parseTable = {}
 
-    parse_table[('S, aa')] = ['NN', 'VB', 'NN']
-    parse_table[('S, teteh')] = ['NN', 'VB', 'NN']
-    parse_table[('S, acuk')] = ['NN', 'VB', 'NN']
-    parse_table[('S, kueh')] = ['NN', 'VB', 'NN']
-    parse_table[('S, imah')] = ['NN', 'VB', 'NN']
-    parse_table[('S, sapedah')] = ['NN', 'VB', 'NN']
-    parse_table[('S, hape')] = ['NN', 'VB', 'NN']
-    parse_table[('S, hayang')] = ['error']
-    parse_table[('S, nyieun')] = ['error']
-    parse_table[('S, meuli')] = ['error']
-    parse_table[('S, EOS')] = ['error']
+    parseTable[('S, aa')] = ['NN', 'VB', 'NN']
+    parseTable[('S, teteh')] = ['NN', 'VB', 'NN']
+    parseTable[('S, acuk')] = ['NN', 'VB', 'NN']
+    parseTable[('S, kueh')] = ['NN', 'VB', 'NN']
+    parseTable[('S, imah')] = ['NN', 'VB', 'NN']
+    parseTable[('S, sapedah')] = ['NN', 'VB', 'NN']
+    parseTable[('S, hape')] = ['NN', 'VB', 'NN']
+    parseTable[('S, hayang')] = ['error']
+    parseTable[('S, nyieun')] = ['error']
+    parseTable[('S, meuli')] = ['error']
+    parseTable[('S, EOS')] = ['error']
 
-    parse_table[('NN, aa')] = ['aa']
-    parse_table[('NN, teteh')] = ['teteh']
-    parse_table[('NN, acuk')] = ['acuk']
-    parse_table[('NN, kueh')] = ['kueh']
-    parse_table[('NN, imah')] = ['imah']
-    parse_table[('NN, sapedah')] = ['sapedah']
-    parse_table[('NN, hape')] = ['hape']
-    parse_table[('NN, hayang')] = ['error']
-    parse_table[('NN, nyieun')] = ['error']
-    parse_table[('NN, meuli')] = ['error']
-    parse_table[('NN, EOS')] = ['error']
+    parseTable[('NN, aa')] = ['aa']
+    parseTable[('NN, teteh')] = ['teteh']
+    parseTable[('NN, acuk')] = ['acuk']
+    parseTable[('NN, kueh')] = ['kueh']
+    parseTable[('NN, imah')] = ['imah']
+    parseTable[('NN, sapedah')] = ['sapedah']
+    parseTable[('NN, hape')] = ['hape']
+    parseTable[('NN, hayang')] = ['error']
+    parseTable[('NN, nyieun')] = ['error']
+    parseTable[('NN, meuli')] = ['error']
+    parseTable[('NN, EOS')] = ['error']
 
-    parse_table[('VB, aa')] = ['error']
-    parse_table[('VB, teteh')] = ['error']
-    parse_table[('VB, acuk')] = ['error']
-    parse_table[('VB, kueh')] = ['error']
-    parse_table[('VB, imah')] = ['error']
-    parse_table[('VB, sapedah')] = ['error']
-    parse_table[('VB, hape')] = ['error']
-    parse_table[('VB, hayang')] = ['hayang']
-    parse_table[('VB, nyieun')] = ['nyieun']
-    parse_table[('VB, meuli')] = ['meuli']
-    parse_table[('VB, EOS')] = ['error']
+    parseTable[('VB, aa')] = ['error']
+    parseTable[('VB, teteh')] = ['error']
+    parseTable[('VB, acuk')] = ['error']
+    parseTable[('VB, kueh')] = ['error']
+    parseTable[('VB, imah')] = ['error']
+    parseTable[('VB, sapedah')] = ['error']
+    parseTable[('VB, hape')] = ['error']
+    parseTable[('VB, hayang')] = ['hayang']
+    parseTable[('VB, nyieun')] = ['nyieun']
+    parseTable[('VB, meuli')] = ['meuli']
+    parseTable[('VB, EOS')] = ['error']
 
     // stack initialization
     let stack = []
@@ -215,8 +215,8 @@ function parser(sentence) {
     stack.push('S')
 
     // input reading initialization
-    let idx_token = 0
-    let symbol = tokens[idx_token]
+    let idxToken = 0
+    let symbol = tokens[idxToken]
 
     // parsing
     while (stack.length > 0) {
@@ -227,8 +227,8 @@ function parser(sentence) {
             console.log(`${top} is a terminal`)
             if (top == symbol) {
                 stack.pop()
-                idx_token += 1
-                symbol = tokens[idx_token]
+                idxToken += 1
+                symbol = tokens[idxToken]
                 if (symbol == 'EOS') {
                     console.log(`Stack: ${stack}`)
                     stack.pop()
@@ -237,11 +237,11 @@ function parser(sentence) {
                 console.log('Error')
                 break
             }
-        } else if (non_terminals.includes(top)) {
+        } else if (nonTerminals.includes(top)) {
             console.log(`${top} is a non-terminal`)
-            if (parse_table[(`${top}, ${symbol}`)] && parse_table[(`${top}, ${symbol}`)][0] != 'error') {
+            if (parseTable[(`${top}, ${symbol}`)] && parseTable[(`${top}, ${symbol}`)][0] != 'error') {
                 stack.pop()
-                let pushed_symbol = parse_table[(`${top}, ${symbol}`)]
+                let pushed_symbol = parseTable[(`${top}, ${symbol}`)]
                 for (let i = pushed_symbol.length - 1; i >= 0; i--) {
                     stack.push(pushed_symbol[i])
                 }
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
         lexicalResult.innerHTML = '<img src="assets/138.gif" alt="loading..." style="width: 35px; height: 35px;">';
 
         setTimeout(() => {
-            if (lexical_analyzer(input)) {
+            if (lexicalAnalyzer(input)) {
                 lexicalResult.innerHTML = `<p>\"${input}\" is accepted by lexical analyzer,</p>`;
             } else {
                 lexicalResult.innerHTML = `<p>\"${input}\" is rejected by lexical analyzer,</p>`;
