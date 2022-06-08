@@ -234,12 +234,12 @@ function parser(sentence) {
                     stack.pop()
                 }
             } else {
-                console.log('error')
+                console.log('Error')
                 break
             }
         } else if (non_terminals.includes(top)) {
             console.log(`${top} is a non-terminal`)
-            if (parse_table[(`${top}, ${symbol}`)][0] != 'error') {
+            if (parse_table[(`${top}, ${symbol}`)] && parse_table[(`${top}, ${symbol}`)][0] != 'error') {
                 stack.pop()
                 let pushed_symbol = parse_table[(`${top}, ${symbol}`)]
                 for (let i = pushed_symbol.length - 1; i >= 0; i--) {
