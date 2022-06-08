@@ -168,41 +168,41 @@ function parser(sentence) {
     // parse table definition
     let parse_table = {}
 
-    parse_table[('S', 'aa')] = ['NN', 'VB', 'NN']
-    parse_table[('S', 'teteh')] = ['NN', 'VB', 'NN']
-    parse_table[('S', 'acuk')] = ['NN', 'VB', 'NN']
-    parse_table[('S', 'kueh')] = ['NN', 'VB', 'NN']
-    parse_table[('S', 'imah')] = ['NN', 'VB', 'NN']
-    parse_table[('S', 'sapedah')] = ['NN', 'VB', 'NN']
-    parse_table[('S', 'hape')] = ['NN', 'VB', 'NN']
-    parse_table[('S', 'hayang')] = ['error']
-    parse_table[('S', 'nyieun')] = ['error']
-    parse_table[('S', 'meuli')] = ['error']
-    parse_table[('S', 'EOS')] = ['error']
+    parse_table[('S, aa')] = ['NN', 'VB', 'NN']
+    parse_table[('S, teteh')] = ['NN', 'VB', 'NN']
+    parse_table[('S, acuk')] = ['NN', 'VB', 'NN']
+    parse_table[('S, kueh')] = ['NN', 'VB', 'NN']
+    parse_table[('S, imah')] = ['NN', 'VB', 'NN']
+    parse_table[('S, sapedah')] = ['NN', 'VB', 'NN']
+    parse_table[('S, hape')] = ['NN', 'VB', 'NN']
+    parse_table[('S, hayang')] = ['error']
+    parse_table[('S, nyieun')] = ['error']
+    parse_table[('S, meuli')] = ['error']
+    parse_table[('S, EOS')] = ['error']
 
-    parse_table[('NN', 'aa')] = ['aa']
-    parse_table[('NN', 'teteh')] = ['teteh']
-    parse_table[('NN', 'acuk')] = ['acuk']
-    parse_table[('NN', 'kueh')] = ['kueh']
-    parse_table[('NN', 'imah')] = ['imah']
-    parse_table[('NN', 'sapedah')] = ['sapedah']
-    parse_table[('NN', 'hape')] = ['hape']
-    parse_table[('NN', 'hayang')] = ['error']
-    parse_table[('NN', 'nyieun')] = ['error']
-    parse_table[('NN', 'meuli')] = ['error']
-    parse_table[('NN', 'EOS')] = ['error']
+    parse_table[('NN, aa')] = ['aa']
+    parse_table[('NN, teteh')] = ['teteh']
+    parse_table[('NN, acuk')] = ['acuk']
+    parse_table[('NN, kueh')] = ['kueh']
+    parse_table[('NN, imah')] = ['imah']
+    parse_table[('NN, sapedah')] = ['sapedah']
+    parse_table[('NN, hape')] = ['hape']
+    parse_table[('NN, hayang')] = ['error']
+    parse_table[('NN, nyieun')] = ['error']
+    parse_table[('NN, meuli')] = ['error']
+    parse_table[('NN, EOS')] = ['error']
 
-    parse_table[('VB', 'aa')] = ['error']
-    parse_table[('VB', 'teteh')] = ['error']
-    parse_table[('VB', 'acuk')] = ['error']
-    parse_table[('VB', 'kueh')] = ['error']
-    parse_table[('VB', 'imah')] = ['error']
-    parse_table[('VB', 'sapedah')] = ['error']
-    parse_table[('VB', 'hape')] = ['error']
-    parse_table[('VB', 'hayang')] = ['hayang']
-    parse_table[('VB', 'nyieun')] = ['nyieun']
-    parse_table[('VB', 'meuli')] = ['meuli']
-    parse_table[('VB', 'EOS')] = ['error']
+    parse_table[('VB, aa')] = ['error']
+    parse_table[('VB, teteh')] = ['error']
+    parse_table[('VB, acuk')] = ['error']
+    parse_table[('VB, kueh')] = ['error']
+    parse_table[('VB, imah')] = ['error']
+    parse_table[('VB, sapedah')] = ['error']
+    parse_table[('VB, hape')] = ['error']
+    parse_table[('VB, hayang')] = ['hayang']
+    parse_table[('VB, nyieun')] = ['nyieun']
+    parse_table[('VB, meuli')] = ['meuli']
+    parse_table[('VB, EOS')] = ['error']
 
     // stack initialization
     let stack = []
@@ -216,22 +216,27 @@ function parser(sentence) {
     // parsing
     while (stack.length > 0) {
         let top = stack[stack.length - 1]
-        if (top in terminals) {
+        console.log(`top: ${top}`)
+        console.log(`symbol: ${symbol}`)
+        if (terminals.includes(top)) {
+            console.log(`${top} is a terminal`)
             if (top == symbol) {
                 stack.pop()
                 idx_token += 1
                 symbol = tokens[idx_token]
                 if (symbol == 'EOS') {
+                    console.log(`stack: ${stack}`)
                     stack.pop()
                 }
             } else {
                 console.log('error')
                 break
             }
-        } else if (top in non_terminals) {
-            if (parse_table[(top, symbol)][0] != 'error') {
+        } else if (non_terminals.includes(top)) {
+            console.log(`${top} is a non-terminal`)
+            if (parse_table[(`${top}, ${symbol}`)][0] != 'error') {
                 stack.pop()
-                let pushed_symbol = parse_table[(top, symbol)]
+                let pushed_symbol = parse_table[(`${top}, ${symbol}`)]
                 for (let i = pushed_symbol.length - 1; i >= 0; i--) {
                     stack.push(pushed_symbol[i])
                 }
@@ -243,7 +248,7 @@ function parser(sentence) {
             console.log('parser error')
             break
         }
-        console.log('isi stack: ', stack, '\n')
+        console.log(`stack: ${stack}\n`)
     }
 
     // conclusion
