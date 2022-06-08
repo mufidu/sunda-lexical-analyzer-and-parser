@@ -275,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const onSubmit = async (event) => {
         event.preventDefault();
         const input = formInput.value;
+        console.clear()
 
         lexicalResult.innerHTML = '';
         parserResult.innerHTML = '';
