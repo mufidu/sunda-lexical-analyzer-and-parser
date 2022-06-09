@@ -294,10 +294,14 @@ document.addEventListener('DOMContentLoaded', function () {
             // Show spinner for 1.5 seconds
             parserResult.innerHTML = '<img src="assets/138.gif" alt="loading..." style="width: 35px; height: 35px;">';
             setTimeout(() => {
-                if (parser(input)) {
-                    parserResult.innerHTML = `<p>...and accepted by the parser.</p>`;
+                if (!lexicalAnalyzer(input)) {
+                    parserResult.innerHTML = `<p>...and obviously also rejected by the parser,</p>`;
                 } else {
-                    parserResult.innerHTML = `<p>...and rejected by the parser.</p>`;
+                    if (parser(input)) {
+                        parserResult.innerHTML = `<p>...and also accepted by the parser.</p>`;
+                    } else {
+                        parserResult.innerHTML = `<p>...but unfortunately is rejected by the parser.</p>`;
+                    }
                 }
 
                 setTimeout(() => {
